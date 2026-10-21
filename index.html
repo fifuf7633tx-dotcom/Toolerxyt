@@ -1,57 +1,60 @@
 <!DOCTYPE html>
-<html lang="bn">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#0f0f0f"><title>Toolerxyt | Password Protected</title>
+<html lang="bn"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#101010"><title>Toolerxyt Admin | Passwords</title>
 <style>
-*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at top,#2b1015,#0f0f0f 55%);font-family:Arial,sans-serif;color:#f7f7f7;display:grid;place-items:center;padding:20px}
-.card{width:min(100%,460px);background:linear-gradient(160deg,#202020,#141414);border:1px solid #333;border-radius:25px;overflow:hidden;box-shadow:0 25px 70px #0009}
-.banner{height:115px;background:linear-gradient(120deg,#4b0010,#e60023 50%,#41000b);display:flex;align-items:end;padding:18px;letter-spacing:3px;font-size:12px;font-weight:bold;color:#ffffffcc}
-main{padding:25px;text-align:center}.avatar{width:86px;height:86px;margin:-62px auto 15px;border:5px solid #181818;border-radius:50%;background:linear-gradient(145deg,#ff2447,#9b001a);display:grid;place-items:center;font-size:25px;font-weight:900;position:relative}
-h1{margin:5px 0 8px;font-size:29px}.muted{color:#aaa;font-size:14px;line-height:1.7}
-.btn{display:flex;width:100%;justify-content:center;align-items:center;border:0;border-radius:12px;padding:15px;text-decoration:none;font-size:15px;font-weight:800;cursor:pointer;margin-top:12px}
-.red{background:#ff0033;color:white}.dark{background:#292929;border:1px solid #444;color:#fff}
-input{width:100%;padding:14px;border-radius:11px;border:1px solid #444;background:#0d0d0d;color:white;font-size:16px;outline:none;margin-top:8px}input:focus{border-color:#ff3155}
-#error{color:#ff6b82;font-size:13px;min-height:20px;margin-top:10px}.hidden{display:none!important}.status{font-size:12px;color:#aaa;margin-top:12px}.foot{border-top:1px solid #2d2d2d;padding:14px;text-align:center;font-size:11px;color:#777;background:#111}
-</style></head>
-<body>
-<div class="card">
-  <div class="banner">TOOLS • TECH • TUTORIALS</div>
-  <main>
-    <div class="avatar">TX</div>
-    <h1>Toolerxyt</h1>
-    <p class="muted">ওয়েবসাইটে প্রবেশ করতে সক্রিয় পাসওয়ার্ড লিখুন।</p>
-    <form id="gateForm">
-      <input id="password" type="password" placeholder="Enter website password" autocomplete="current-password" required>
-      <button class="btn red" id="submitBtn" type="submit">Unlock Website</button>
-    </form>
-    <div id="error" role="alert"></div>
-    <div id="siteContent" class="hidden">
-      <p class="muted">আপনি ওয়েবসাইটে প্রবেশ করেছেন।</p>
-      <button class="btn red" id="verifyBtn" type="button">Open YouTube Channel</button>
-      <div id="verifyStatus" class="status"></div>
-      <a id="openLink" class="btn dark hidden" href="https://github.com/abusaeeidx/Mrgify-BDIX-IPTV/raw/main/playlist.m3u" target="_blank" rel="noopener noreferrer">Open Link ↗</a>
-    </div>
-  </main>
-  <div class="foot">© <span id="year"></span> Toolerxyt</div>
-</div>
+*{box-sizing:border-box}body{margin:0;padding:20px;min-height:100vh;background:#101010;color:#f5f5f5;font-family:Arial,sans-serif;display:flex;justify-content:center}
+.wrap{width:min(100%,700px);padding:22px;border:1px solid #333;border-radius:20px;background:#191919;height:max-content;box-shadow:0 20px 60px #0008}
+h1{margin:0 0 8px;font-size:25px}.muted{color:#aaa;font-size:13px;line-height:1.6}
+input{width:100%;padding:13px;border:1px solid #444;border-radius:10px;background:#0d0d0d;color:#fff;margin:7px 0 12px;font-size:15px}
+button{border:0;border-radius:10px;padding:12px 15px;background:#ed1238;color:#fff;font-weight:bold;cursor:pointer}button.secondary{background:#303030;border:1px solid #444}button.danger{background:#6f1728}
+.row{display:flex;gap:9px;flex-wrap:wrap}.row>*{flex:1}.panel{border:1px solid #333;border-radius:14px;padding:16px;margin-top:16px}.hidden{display:none!important}
+.msg{font-size:13px;margin-top:10px;color:#ff9bac;white-space:pre-wrap}.msg.ok{color:#7be0a5}
+.item{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid #333}.item:last-child{border-bottom:0}.pw{font-family:monospace;overflow-wrap:anywhere}.small{font-size:11px;color:#888}
+</style></head><body><main class="wrap">
+<h1>Toolerxyt Admin</h1><p class="muted">ওয়েবসাইটের পাসওয়ার্ড যোগ, তালিকা দেখা এবং মুছে ফেলার প্যানেল। Admin API secret ছাড়া কোনো পরিবর্তন করা যাবে না।</p>
+<section class="panel" id="authPanel">
+<label for="secret">Admin Secret</label><input id="secret" type="password" placeholder="Vercel ADMIN_SECRET value" autocomplete="current-password">
+<button id="login">Connect Admin</button><div id="authMsg" class="msg"></div>
+</section>
+<section class="panel hidden" id="manager">
+<h2 style="margin-top:0">নতুন পাসওয়ার্ড যোগ করুন</h2>
+<form id="addForm"><label for="newPassword">Password</label><input id="newPassword" minlength="4" maxlength="128" placeholder="নতুন পাসওয়ার্ড লিখুন" required>
+<div class="row"><button type="submit">Add Password</button><button class="secondary" id="refresh" type="button">Refresh List</button></div></form>
+<div id="actionMsg" class="msg"></div>
+<h2>সক্রিয় পাসওয়ার্ড</h2><div id="list"><p class="muted">লোড হচ্ছে...</p></div>
+<p class="small">নিরাপত্তার জন্য এই পেজের URL-কে একমাত্র সুরক্ষা হিসেবে ব্যবহার করবেন না। Admin Secret অবশ্যই Vercel Environment Variables-এ সেট করুন।</p>
+</section>
+</main>
 <script>
-const form=document.getElementById('gateForm'), pass=document.getElementById('password'), error=document.getElementById('error');
-document.getElementById('year').textContent=new Date().getFullYear();
-form.addEventListener('submit',async e=>{
- e.preventDefault();error.textContent='পাসওয়ার্ড যাচাই হচ্ছে...';
- document.getElementById('submitBtn').disabled=true;
- try{
-   const r=await fetch('/api/passwords?action=verify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pass.value})});
-   const data=await r.json();
-   if(r.ok&&data.valid){form.classList.add('hidden');error.textContent='';document.getElementById('siteContent').classList.remove('hidden')}
-   else{error.textContent=data.error||'ভুল পাসওয়ার্ড।';pass.value='';pass.focus()}
- }catch(_){error.textContent='সার্ভারের সঙ্গে সংযোগ হয়নি। Vercel Environment Variables সেট করা আছে কি না দেখুন।'}
- finally{document.getElementById('submitBtn').disabled=false}
-});
-document.getElementById('verifyBtn').addEventListener('click',()=>{
- const s=document.getElementById('verifyStatus'), link=document.getElementById('openLink');
- s.textContent='লিংকের ঠিকানা যাচাই হচ্ছে...';s.classList.remove('hidden');link.classList.add('hidden');
- setTimeout(()=>{s.textContent='লিংকের ফরম্যাট যাচাই সম্পন্ন। ফাইল সার্ভারে আছে কি না এই ধাপ নিশ্চিত করে না।';link.classList.remove('hidden')},1100);
-});
+const secret=document.getElementById('secret'), authMsg=document.getElementById('authMsg'), manager=document.getElementById('manager'), list=document.getElementById('list'), actionMsg=document.getElementById('actionMsg');
+let adminSecret='';
+async function api(method,body){
+ const r=await fetch('/api/passwords?action=admin',{method,headers:{'Content-Type':'application/json','x-admin-secret':adminSecret},body:body?JSON.stringify(body):undefined});
+ const d=await r.json().catch(()=>({error:'Invalid server response'}));
+ if(!r.ok)throw new Error(d.error||'Request failed');return d;
+}
+async function loadList(){
+ list.innerHTML='<p class="muted">লোড হচ্ছে...</p>';
+ try{const d=await api('GET');if(!d.passwords.length){list.innerHTML='<p class="muted">এখনও কোনো পাসওয়ার্ড যোগ করা হয়নি।</p>';return}
+ list.innerHTML='';d.passwords.forEach(p=>{
+  const row=document.createElement('div');row.className='item';
+  const text=document.createElement('span');text.className='pw';text.textContent=p;
+  const del=document.createElement('button');del.className='danger';del.textContent='Delete';del.onclick=async()=>{
+   if(!confirm('এই পাসওয়ার্ড মুছে ফেলবেন?'))return;
+   try{await api('DELETE',{password:p});actionMsg.className='msg ok';actionMsg.textContent='পাসওয়ার্ড মুছে ফেলা হয়েছে।';await loadList()}
+   catch(e){actionMsg.className='msg';actionMsg.textContent=e.message}
+  };
+  row.append(text,del);list.appendChild(row);
+ })}catch(e){list.innerHTML='';actionMsg.className='msg';actionMsg.textContent=e.message}
+}
+document.getElementById('login').onclick=async()=>{
+ adminSecret=secret.value.trim();authMsg.textContent='সার্ভারে যাচাই হচ্ছে...';
+ try{await api('GET');authMsg.className='msg ok';authMsg.textContent='Admin সংযোগ সফল।';manager.classList.remove('hidden');await loadList()}
+ catch(e){adminSecret='';authMsg.className='msg';authMsg.textContent=e.message||'Admin Secret সঠিক নয়।'}
+};
+document.getElementById('addForm').onsubmit=async e=>{
+ e.preventDefault();const p=document.getElementById('newPassword').value;
+ try{await api('POST',{password:p});actionMsg.className='msg ok';actionMsg.textContent='নতুন পাসওয়ার্ড যোগ হয়েছে।';document.getElementById('newPassword').value='';await loadList()}
+ catch(e){actionMsg.className='msg';actionMsg.textContent=e.message}
+};
+document.getElementById('refresh').onclick=loadList;
 </script></body></html>

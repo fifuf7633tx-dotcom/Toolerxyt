@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0f0f0f"><title>Toolerxyt | Password Protected</title>
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at top,#2b1015,#0f0f0f 55%);font-family:Arial,sans-serif;color:#f7f7f7;display:grid;place-items:center;padding:20px}
+.card{width:min(100%,460px);background:linear-gradient(160deg,#202020,#141414);border:1px solid #333;border-radius:25px;overflow:hidden;box-shadow:0 25px 70px #0009}
+.banner{height:115px;background:linear-gradient(120deg,#4b0010,#e60023 50%,#41000b);display:flex;align-items:end;padding:18px;letter-spacing:3px;font-size:12px;font-weight:bold;color:#ffffffcc}
+main{padding:25px;text-align:center}.avatar{width:86px;height:86px;margin:-62px auto 15px;border:5px solid #181818;border-radius:50%;background:linear-gradient(145deg,#ff2447,#9b001a);display:grid;place-items:center;font-size:25px;font-weight:900;position:relative}
+h1{margin:5px 0 8px;font-size:29px}.muted{color:#aaa;font-size:14px;line-height:1.7}
+.btn{display:flex;width:100%;justify-content:center;align-items:center;border:0;border-radius:12px;padding:15px;text-decoration:none;font-size:15px;font-weight:800;cursor:pointer;margin-top:12px}
+.red{background:#ff0033;color:white}.dark{background:#292929;border:1px solid #444;color:#fff}
+input{width:100%;padding:14px;border-radius:11px;border:1px solid #444;background:#0d0d0d;color:white;font-size:16px;outline:none;margin-top:8px}input:focus{border-color:#ff3155}
+#error{color:#ff6b82;font-size:13px;min-height:20px;margin-top:10px}.hidden{display:none!important}.status{font-size:12px;color:#aaa;margin-top:12px}.foot{border-top:1px solid #2d2d2d;padding:14px;text-align:center;font-size:11px;color:#777;background:#111}
+</style></head>
+<body>
+<div class="card">
+  <div class="banner">TOOLS • TECH • TUTORIALS</div>
+  <main>
+    <div class="avatar">TX</div>
+    <h1>Toolerxyt</h1>
+    <p class="muted">ওয়েবসাইটে প্রবেশ করতে সক্রিয় পাসওয়ার্ড লিখুন।</p>
+    <form id="gateForm">
+      <input id="password" type="password" placeholder="Enter website password" autocomplete="current-password" required>
+      <button class="btn red" id="submitBtn" type="submit">Unlock Website</button>
+    </form>
+    <div id="error" role="alert"></div>
+    <div id="siteContent" class="hidden">
+      <p class="muted">আপনি ওয়েবসাইটে প্রবেশ করেছেন।</p>
+      <button class="btn red" id="verifyBtn" type="button">Open YouTube Channel</button>
+      <div id="verifyStatus" class="status"></div>
+      <a id="openLink" class="btn dark hidden" href="https://github.com/abusaeeidx/Mrgify-BDIX-IPTV/raw/main/playlist.m3u" target="_blank" rel="noopener noreferrer">Open Link ↗</a>
+    </div>
+  </main>
+  <div class="foot">© <span id="year"></span> Toolerxyt</div>
+</div>
+<script>
+const form=document.getElementById('gateForm'), pass=document.getElementById('password'), error=document.getElementById('error');
+document.getElementById('year').textContent=new Date().getFullYear();
+form.addEventListener('submit',async e=>{
+ e.preventDefault();error.textContent='পাসওয়ার্ড যাচাই হচ্ছে...';
+ document.getElementById('submitBtn').disabled=true;
+ try{
+   const r=await fetch('/api/passwords?action=verify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pass.value})});
+   const data=await r.json();
+   if(r.ok&&data.valid){form.classList.add('hidden');error.textContent='';document.getElementById('siteContent').classList.remove('hidden')}
+   else{error.textContent=data.error||'ভুল পাসওয়ার্ড।';pass.value='';pass.focus()}
+ }catch(_){error.textContent='সার্ভারের সঙ্গে সংযোগ হয়নি। Vercel Environment Variables সেট করা আছে কি না দেখুন।'}
+ finally{document.getElementById('submitBtn').disabled=false}
+});
+document.getElementById('verifyBtn').addEventListener('click',()=>{
+ const s=document.getElementById('verifyStatus'), link=document.getElementById('openLink');
+ s.textContent='লিংকের ঠিকানা যাচাই হচ্ছে...';s.classList.remove('hidden');link.classList.add('hidden');
+ setTimeout(()=>{s.textContent='লিংকের ফরম্যাট যাচাই সম্পন্ন। ফাইল সার্ভারে আছে কি না এই ধাপ নিশ্চিত করে না।';link.classList.remove('hidden')},1100);
+});
+</script></body></html>
